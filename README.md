@@ -1,1 +1,1 @@
-# MPEI_COURSE_TYKOVKA
+# tykovka_
