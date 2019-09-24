@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/powx-n/
+
+class Solution {
+public:
+    double myPow(double x, long long int n) {
+	if (n == 0)
+		return 1;
+	int k = 1;
+	if (n < 0) {
+		k = -1;
+	}
+	n = abs(n);
+	if (n % 2 == 1) {  
+        if (k == -1){
+            return 1/(myPow(x, n - 1) * x);
+        }
+		return myPow(x, n - 1) * x;
+    }
+	else {
+		double  b = myPow(x, n / 2);  
+		if (k == -1) {
+			return  1/(b * b);
+		}
+		return  b * b;
+	}
+    }
+};
