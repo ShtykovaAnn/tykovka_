@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/submissions/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return Builder(nums, 0, nums.size() - 1);
+    }
+    
+    TreeNode* Builder (vector <int>& nums, int left_elem, int right_elem){
+        if (left_elem > right_elem)
+        {
+            return NULL;
+        }
+        
+        int middle = (left_elem + right_elem)/2;
+        
+        TreeNode* node = new TreeNode(nums[middle]);
+        node->left  = Builder(nums, left_elem, middle - 1);
+        node->right = Builder(nums, middle + 1, right_elem);
+        return node;
+        
+    }
+};
