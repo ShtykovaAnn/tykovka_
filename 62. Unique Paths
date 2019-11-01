@@ -1,0 +1,16 @@
+//https://leetcode.com/problems/unique-paths/description/
+
+class Solution {
+public:
+unsigned long int Fac(int n, int i, int k) {
+	unsigned long int f = 1;
+	int j = 1;
+	for (i, j; i <= n, j <= k; i++, j++) {
+		f = f * i / j;
+	}
+	return f;
+}
+unsigned long int uniquePaths(int m, int n) {
+	return (Fac(m + n - 2, n, m - 1));
+}
+};
