@@ -1,0 +1,79 @@
+//https://leetcode.com/problems/shortest-path-with-alternating-colors/
+
+using namespace std;
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& red_edges, vector<vector<int>>& blue_edges) {
+        int level[n];
+        int i,j;
+        for(i=0;i<n;i++)
+        {
+            level[i]=-1;
+        }
+        vector<vector<int> >bAdj(n);
+        vector<vector<int> >rAdj(n);
+        for(i=0;i<red_edges.size();i++)
+        {
+            rAdj[red_edges[i][0]].push_back(red_edges[i][1]);
+        }
+        for(i=0;i<blue_edges.size();i++)
+        {
+            bAdj[blue_edges[i][0]].push_back(blue_edges[i][1]);
+        }
+        level[0]=0;
+        list<vector<int> > q;
+        vector<int> v;
+        v.push_back(0);
+        v.push_back(2);
+
+        q.push_back(v);
+        int dist=0;
+        unordered_map<string,int> mp;
+        while(!q.empty())
+        {
+        	int s=q.size();
+        	for(i=0;i<s;i++)
+        	{
+        		vector<int> u = q.front();
+	            q.pop_front();
+	            string key = to_string(u[0])+" "+to_string(u[1]);
+	            if(mp.find(key)==mp.end())
+	            	mp.insert(make_pair(key,1));
+	            else
+	            	continue;
+	            if(level[u[0]]==-1)
+	            	level[u[0]]=dist;
+	            else
+	            {
+	            	if(level[u[0]]>dist)
+	        			level[u[0]]=dist;
+	            }
+	            if(u[1]==0||u[1]==2)
+	            {
+	            	for(j=0;j<rAdj[u[0]].size();j++)
+	            	{
+	            		vector<int> temp(2);
+	            		temp[0]=rAdj[u[0]][j];
+	            		temp[1]=1;
+	            		q.push_back(temp);
+	            	}
+	            }
+	            if(u[1]==1||u[1]==2)
+	            {
+	            	for(j=0;j<bAdj[u[0]].size();j++)
+	            	{
+	            		vector<int> temp(2);
+	            		temp[0]=bAdj[u[0]][j];
+	            		temp[1]=0;
+	            		q.push_back(temp);
+	            	}
+	            }
+        	}
+        	dist++;
+        }
+        vector<int> vect(n);
+        for(i=0;i<n;i++)
+        	vect[i]=level[i];
+        return vect;
+    }
+};
