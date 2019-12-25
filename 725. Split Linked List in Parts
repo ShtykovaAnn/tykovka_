@@ -15,28 +15,29 @@ public:
     vector<ListNode*> splitListToParts(ListNode* root, int k) {
         int size = 0;
         vector<ListNode*> result;
-        ListNode *tmp=root, *prev=NULL;
-        while(tmp){
+        ListNode *tmp = root;
+        ListNode *prev = NULL;
+        while( tmp ){
             size++;
             tmp = tmp->next;
         }
-        int Q = size/k;
-        int l = size%k;
+        int s1 = size / k;
+        int s2 = size % k;
         tmp = root;
         while(k > 0){
-            int j = Q;
+            int j = s1;
             result.push_back(tmp);
             while(tmp && j > 0){
                 prev = tmp;
                 tmp = tmp->next;
                 j--;
             }
-            if(l > 0 && tmp){
+            if(s2 > 0 && tmp){
                 prev = tmp;
                 tmp = tmp->next;
-                l--;
+                s2--;
             }
-            if(prev)
+            if( prev )
                 prev->next = NULL;
             k--;
         }
